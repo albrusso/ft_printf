@@ -6,7 +6,7 @@
 #    By: albrusso <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/07 14:16:03 by albrusso          #+#    #+#              #
-#    Updated: 2024/03/19 12:36:46 by albrusso         ###   ########.fr        #
+#    Updated: 2024/03/19 13:48:00 by albrusso         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -77,12 +77,12 @@ SRC		=	libft/ft_isalnum.c      \
 			libft/ft_lstnew.c       \
 			libft/ft_lstsize.c      \
 			ft_printf.c             \
-			ft_is_c.c               \
-			ft_is_d_or_i.c          \
-			ft_is_p.c               \
-			ft_is_s.c               \
-			ft_is_u.c               \
-			ft_is_x_or_X.c
+			ft_char.c               \
+			ft_int.c                \
+			ft_pointer.c            \
+			ft_string.c             \
+			ft_unsigned.c           \
+			ft_hexadecimal.c
 
 OBJ	=	$(addprefix $(OBJ_DIR)/, $(SRC:.c=.o))
 

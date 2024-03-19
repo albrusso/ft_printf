@@ -1,48 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_is_d_or_i.c                                     :+:      :+:    :+:   */
+/*   ft_string.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: albrusso <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/08 17:49:54 by albrusso          #+#    #+#             */
-/*   Updated: 2022/11/14 17:33:21 by albrusso         ###   ########.fr       */
+/*   Created: 2022/11/08 17:48:45 by albrusso          #+#    #+#             */
+/*   Updated: 2024/03/19 13:49:03 by albrusso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int	ft_intlen(int nbr)
+void	ft_putstr(char *str, t_sc *sc)
 {
-	int		x;
-	char	*c;
+	int	i;
 
-	c = ft_itoa(nbr);
-	x = ft_strlen(c);
-	free(c);
-	return (x);
+	i = 0;
+	while (str[i])
+	{
+		ft_putchar(str[i], sc);
+		i++;
+	}
 }
 
-void	ft_putnbr(long int nb, t_sc *sc)
+void	ft_string(va_list arg, t_sc *sc)
 {
-	if (nb < 0)
-	{
-		ft_putchar('-', sc);
-		nb = -nb;
-	}
-	if (nb >= 10)
-	{
-		ft_putnbr(nb / 10, sc);
-		nb = nb % 10;
-	}
-	if (nb < 10)
-		ft_putchar(nb + 48, sc);
-}
+	char	*s;
 
-void	ft_is_d_or_i(va_list arg, t_sc *sc)
-{
-	long int	n;
-
-	n = (long int) va_arg(arg, int);
-	ft_putnbr(n, sc);
+	s = va_arg(arg, char *);
+	if (!s)
+		sc->len += write (1, "(null)", 6);
+	else
+		ft_putstr(s, sc);
 }

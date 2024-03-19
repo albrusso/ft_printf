@@ -6,7 +6,7 @@
 /*   By: albrusso <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/08 16:13:06 by albrusso          #+#    #+#             */
-/*   Updated: 2022/11/14 17:37:23 by albrusso         ###   ########.fr       */
+/*   Updated: 2024/03/19 13:49:51 by albrusso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,17 +16,17 @@
 void	ft_type(va_list arg, const char format, t_sc *sc)
 {
 	if (format == 'c')
-		ft_is_c(arg, sc);
+		ft_char(arg, sc);
 	else if (format == 's')
-		ft_is_s(arg, sc);
+		ft_string(arg, sc);
 	else if (format == 'd' || format == 'i')
-		ft_is_d_or_i(arg, sc);
+		ft_int(arg, sc);
 	else if (format == 'x' || format == 'X')
-		ft_is_x(arg, sc, format);
+		ft_hexadecimal(arg, sc, format);
 	else if (format == 'p')
-		ft_is_p(arg, sc);
+		ft_pointer(arg, sc);
 	else if (format == 'u')
-		ft_is_u(arg, sc);
+		ft_unsigned(arg, sc);
 	else if (format == '%')
 	{
 		write (1, "%", 1);

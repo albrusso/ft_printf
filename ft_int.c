@@ -1,35 +1,48 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_is_x_or_X.c                                     :+:      :+:    :+:   */
+/*   ft_int.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: albrusso <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/09 12:24:56 by albrusso          #+#    #+#             */
-/*   Updated: 2022/11/14 17:37:08 by albrusso         ###   ########.fr       */
+/*   Created: 2022/11/08 17:49:54 by albrusso          #+#    #+#             */
+/*   Updated: 2024/03/19 13:48:48 by albrusso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-void	ft_puthex(unsigned int nbr, char *hex, t_sc *sc)
+int	ft_intlen(int nbr)
 {
-	if (nbr >= 16)
-	{
-		ft_puthex(nbr / 16, hex, sc);
-		ft_putchar(hex[nbr % 16], sc);
-	}
-	if (nbr < 16)
-		ft_putchar(hex[nbr], sc);
+	int		x;
+	char	*c;
+
+	c = ft_itoa(nbr);
+	x = ft_strlen(c);
+	free(c);
+	return (x);
 }
 
-void	ft_is_x(va_list arg, t_sc *sc, const char format)
+void	ft_putnbr(long int nb, t_sc *sc)
 {
-	unsigned long	nbr;
+	if (nb < 0)
+	{
+		ft_putchar('-', sc);
+		nb = -nb;
+	}
+	if (nb >= 10)
+	{
+		ft_putnbr(nb / 10, sc);
+		nb = nb % 10;
+	}
+	if (nb < 10)
+		ft_putchar(nb + 48, sc);
+}
 
-	nbr = va_arg(arg, unsigned long);
-	if (format == 'x')
-		ft_puthex(nbr, "0123456789abcdef", sc);
-	else
-		ft_puthex(nbr, "0123456789ABCDEF", sc);
+void	ft_int(va_list arg, t_sc *sc)
+{
+	long int	n;
+
+	n = (long int) va_arg(arg, int);
+	ft_putnbr(n, sc);
 }
