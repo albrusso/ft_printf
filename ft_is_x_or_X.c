@@ -12,24 +12,24 @@
 
 #include "ft_printf.h"
 
-void	ft_puthex(unsigned int nbr, char *hex, int *len)
+void	ft_puthex(unsigned int nbr, char *hex, t_sc *sc)
 {
 	if (nbr >= 16)
 	{
-		ft_puthex(nbr / 16, hex, len);
-		ft_putchar(hex[nbr % 16], len);
+		ft_puthex(nbr / 16, hex, sc);
+		ft_putchar(hex[nbr % 16], sc);
 	}
 	if (nbr < 16)
-		ft_putchar(hex[nbr], len);
+		ft_putchar(hex[nbr], sc);
 }
 
-void	ft_is_x(va_list arg, int *len, const char format)
+void	ft_is_x(va_list arg, t_sc *sc, const char format)
 {
 	unsigned long	nbr;
 
 	nbr = va_arg(arg, unsigned long);
 	if (format == 'x')
-		ft_puthex(nbr, "0123456789abcdef", len);
+		ft_puthex(nbr, "0123456789abcdef", sc);
 	else
-		ft_puthex(nbr, "0123456789ABCDEF", len);
+		ft_puthex(nbr, "0123456789ABCDEF", sc);
 }

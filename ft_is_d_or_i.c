@@ -12,26 +12,37 @@
 
 #include "ft_printf.h"
 
-void	ft_putnbr(long int nb, int *len)
+int	ft_intlen(int nbr)
+{
+	int		x;
+	char	*c;
+
+	c = ft_itoa(nbr);
+	x = ft_strlen(c);
+	free(c);
+	return (x);
+}
+
+void	ft_putnbr(long int nb, t_sc *sc)
 {
 	if (nb < 0)
 	{
-		ft_putchar('-', len);
+		ft_putchar('-', sc);
 		nb = -nb;
 	}
 	if (nb >= 10)
 	{
-		ft_putnbr(nb / 10, len);
+		ft_putnbr(nb / 10, sc);
 		nb = nb % 10;
 	}
 	if (nb < 10)
-		ft_putchar(nb + 48, len);
+		ft_putchar(nb + 48, sc);
 }
 
-void	ft_is_d_or_i(va_list arg, int *len)
+void	ft_is_d_or_i(va_list arg, t_sc *sc)
 {
 	long int	n;
 
 	n = (long int) va_arg(arg, int);
-	ft_putnbr(n, len);
+	ft_putnbr(n, sc);
 }

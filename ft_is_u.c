@@ -12,21 +12,21 @@
 
 #include "ft_printf.h"
 
-void	ft_putnbru(unsigned int nb, int *len)
+void	ft_putnbru(unsigned int nb, t_sc *sc)
 {
 	if (nb >= 10)
 	{
-		ft_putnbru(nb / 10, len);
+		ft_putnbru(nb / 10, sc);
 		nb = nb % 10;
 	}
 	if (nb < 10)
-		ft_putchar(nb + 48, len);
+		ft_putchar(nb + 48, sc);
 }
 
-void	ft_is_u(va_list arg, int *len)
+void	ft_is_u(va_list arg, t_sc *sc)
 {
 	unsigned int	n;
 
 	n = va_arg(arg, unsigned int);
-	ft_putnbru(n, len);
+	ft_putnbru(n, sc);
 }

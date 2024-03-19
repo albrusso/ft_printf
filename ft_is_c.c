@@ -12,15 +12,15 @@
 
 #include "ft_printf.h"
 
-void	ft_putchar(char c, int *len)
+void	ft_putchar(char c, t_sc *sc)
 {
-	*len += write (1, &c, 1);
+	sc->len += write (1, &c, 1);
 }
 
-void	ft_is_c(va_list arg, int *len)
+void	ft_is_c(va_list arg, t_sc *sc)
 {
 	int	c;
 
 	c = va_arg(arg, int);
-	ft_putchar(c, len);
+	sc->len += write (1, &c, 1);
 }

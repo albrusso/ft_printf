@@ -6,77 +6,112 @@
 #    By: albrusso <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/07 14:16:03 by albrusso          #+#    #+#              #
-#    Updated: 2022/11/14 15:35:52 by albrusso         ###   ########.fr        #
+#    Updated: 2024/03/19 12:36:46 by albrusso         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
+
 ################################################################################
 #                                  CONFIG                                      #
 ################################################################################
 
 NAME	=	libftprintf.a
 CC		=	gcc
-CFLAGS	=	-Wall -Werror -Wextra -I.
-RM		=	rm -f
-LIBFT	=	libft
+CFLAGS	=	-Wall -Wextra -g
+OBJ_DIR	=	.obj
+SIZE	=	30
 
 ################################################################################
 #                                  COLORS                                      #
 ################################################################################
 
-GREEN	=	\033[38;5;76m
-RED		=	\033[38;5;160m
-YELLOW	=	\033[38;5;226m
-ORANGE	=	\033[38;5;202m
-PURPLE	=	\033[38;5;213m
-LBLUE	=	\033[38;5;51m
-BLUE	=	\033[38;5;117m
-INDI	=	\033[38;5;99m
-RESET	=	\033[00m
+RED		=	\033[1;31m
+YELLOW	=	\033[1;33m
+BLUE	=	\033[1;34m
+GREEN	=	\033[1;32m
+WHITE	=	\033[1;37m
+DEFAULT	=	\033[0m
 
 ################################################################################
 #                                   FILES                                      #
 ################################################################################
+SRC		=	libft/ft_isalnum.c      \
+			libft/ft_isprint.c      \
+			libft/ft_memcmp.c       \
+			libft/ft_putchar_fd.c   \
+			libft/ft_split.c        \
+			libft/ft_strlcat.c      \
+			libft/ft_strncmp.c      \
+			libft/ft_substr.c       \
+			libft/ft_atoi.c         \
+			libft/ft_isalpha.c      \
+			libft/ft_itoa.c         \
+			libft/ft_memcpy.c       \
+			libft/ft_putendl_fd.c   \
+			libft/ft_strchr.c       \
+			libft/ft_strlcpy.c      \
+			libft/ft_strnstr.c      \
+			libft/ft_tolower.c      \
+			libft/ft_bzero.c        \
+			libft/ft_isascii.c      \
+			libft/ft_memmove.c      \
+			libft/ft_putnbr_fd.c    \
+			libft/ft_strdup.c       \
+			libft/ft_strlen.c       \
+			libft/ft_strrchr.c      \
+			libft/ft_toupper.c      \
+			libft/ft_calloc.c       \
+			libft/ft_isdigit.c      \
+			libft/ft_memchr.c       \
+			libft/ft_memset.c       \
+			libft/ft_putstr_fd.c    \
+			libft/ft_strjoin.c      \
+			libft/ft_strmapi.c      \
+			libft/ft_strtrim.c      \
+			libft/ft_striteri.c     \
+			libft/ft_lstadd_back.c  \
+			libft/ft_lstadd_front.c \
+			libft/ft_lstclear.c     \
+			libft/ft_lstdelone.c    \
+			libft/ft_lstiter.c      \
+			libft/ft_lstlast.c      \
+			libft/ft_lstnew.c       \
+			libft/ft_lstsize.c      \
+			ft_printf.c             \
+			ft_is_c.c               \
+			ft_is_d_or_i.c          \
+			ft_is_p.c               \
+			ft_is_s.c               \
+			ft_is_u.c               \
+			ft_is_x_or_X.c
 
-SRCS	=	ft_is_c.c      \
-			ft_is_d_or_i.c \
-			ft_is_p.c      \
-			ft_is_s.c      \
-			ft_is_u.c      \
-			ft_is_x_or_X.c \
-			ft_printf.c
+OBJ	=	$(addprefix $(OBJ_DIR)/, $(SRC:.c=.o))
 
 ################################################################################
 #                                   MAKE                                       #
 ################################################################################
 
-OBJS	=	$(SRCS:.c=.o)
+all:	$(NAME)
+$(NAME): $(OBJ)
+	@ar rcs $@ $^
 
-all:		header $(NAME)
+$(OBJ_DIR)/%.o: %.c | $(OBJ_DIR)
+	@printf "$(WHITE)%s$(BLUE)%-$(SIZE)s$(GREEN)%s$(DEFAULT)\n" "Compiling... " "$<" "[OK]"
+	@$(CC) $(CFLAGS) -c $< -o $@
 
-header:
-	@echo "$(ORANGE)Name:$(RESET)    ft_printf"
-	@echo "$(ORANGE)Author:  $(RESET)albrusso$(RESET)"
-	@echo "$(ORANGE)Version: $(RESET)v 1.0$(RESET)"
-	@echo
-
-$(NAME):	$(OBJS)
-			@make -C $(LIBFT)
-			@ ar rcs $(NAME) $(OBJS)
-			@echo "$(BLUE)ft_printf $(GREEN)compiled!$(RESET)"
+$(OBJ_DIR):
+	@mkdir -p $(OBJ_DIR)/libft
 
 clean:
-			@make clean -C $(LIBFT)
-			@ $(RM) $(OBJS)
-			@echo "$(BLUE)ft_printf objects file $(YELLOW)removed!$(RESET)"
+	@for file in $(OBJ); do \
+		printf "$(WHITE)%s$(YELLOW)%-$(SIZE)s$(GREEN)%s$(DEFAULT)\n" "Removing...  " "$$file" "[OK]"; \
+	done
+	@rm -f $(OBJ)
+	@rm -rf $(OBJ_DIR)
 
-fclean:		clean
-			@ $(RM) libft/libft.a
-			@echo "$(BLUE)libft.a $(YELLOW)removed!$(RESET)"
-			@ $(RM) $(NAME)
-			@echo "$(BLUE)libftprintf.a $(YELLOW)removed!$(RESET)"
+fclean: clean
+	@printf "$(WHITE)%s$(RED)%-$(SIZE)s$(GREEN)%s$(DEFAULT)\n" "Removing...  " "$(NAME)" "[OK]"
+	@rm -f $(NAME)
 
-re:			fclean all
+re: fclean all
 
-PHONY:		all header clean fclean re
-
-.SILENT:
+.PHONY: all clean fclean re

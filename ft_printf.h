@@ -6,7 +6,7 @@
 /*   By: albrusso <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/07 14:54:33 by albrusso          #+#    #+#             */
-/*   Updated: 2022/11/14 17:37:14 by albrusso         ###   ########.fr       */
+/*   Updated: 2024/03/19 12:33:17 by albrusso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,32 +14,41 @@
 
 # define FT_PRINTF_H
 
+# include <stdio.h>
+# include <unistd.h>
 # include <stdlib.h>
 # include <stdarg.h>
 # include "libft/libft.h"
 
-void	ft_is_c(va_list arg, int *len);
+typedef struct s_sc
+{
+	int	len;
+}	t_sc;
 
-void	ft_is_d_or_i(va_list arg, int *len);
+void	ft_is_c(va_list arg, t_sc *sc);
 
-void	ft_is_s(va_list arg, int *len);
+void	ft_is_d_or_i(va_list arg, t_sc *sc);
 
-void	ft_is_x(va_list arg, int *len, const char format);
+void	ft_is_s(va_list arg, t_sc *sc);
 
-void	ft_putchar(char c, int *len);
+void	ft_is_x(va_list arg, t_sc *sc, const char format);
 
-void	ft_putstr(char *str, int *len);
+void	ft_putchar(char c, t_sc *sc);
 
-void	ft_putnbr(long int nbr, int *len);
+void	ft_putstr(char *str, t_sc *sc);
+
+void	ft_putnbr(long int nbr, t_sc *sc);
+
+int		ft_intlen(int nbr);
 
 int		ft_printf(const char *format, ...);
 
-void	ft_is_p(va_list arg, int *len);
+void	ft_is_p(va_list arg, t_sc *sc);
 
-void	ft_puthex(unsigned int nbr, char *hex, int *len);
+void	ft_puthex(unsigned int nbr, char *hex, t_sc *sc);
 
-void	ft_putnbru(unsigned int nb, int *len);
+void	ft_putnbru(unsigned int nb, t_sc *sc);
 
-void	ft_is_u(va_list arg, int *len);
+void	ft_is_u(va_list arg, t_sc *sc);
 
 #endif

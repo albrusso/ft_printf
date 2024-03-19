@@ -12,29 +12,29 @@
 
 #include "ft_printf.h"
 
-void	ft_puthex1(unsigned long long nbr, char *hex, int *len)
+void	ft_puthex1(unsigned long long nbr, char *hex, t_sc *sc)
 {
 	if (nbr >= 16)
 	{
-		ft_puthex1(nbr / 16, hex, len);
-		ft_putchar(hex[nbr % 16], len);
+		ft_puthex1(nbr / 16, hex, sc);
+		ft_putchar(hex[nbr % 16], sc);
 	}
 	if (nbr < 16)
 	{
-		ft_putchar(hex[nbr], len);
+		ft_putchar(hex[nbr], sc);
 	}
 }
 
-void	ft_is_p(va_list arg, int *len)
+void	ft_is_p(va_list arg, t_sc *sc)
 {
 	unsigned long	c;
 
 	c = va_arg(arg, unsigned long);
 	if (!c)
-		*len += write (1, "(nil)", 5);
+		sc->len += write (1, "(nil)", 5);
 	else
 	{
-		*len += write (1, "0x", 2);
-		ft_puthex1(c, "0123456789abcdef", len);
+		sc->len += write (1, "0x", 2);
+		ft_puthex1(c, "0123456789abcdef", sc);
 	}
 }
